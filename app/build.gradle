@@ -1,0 +1,40 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.khannum.petrol'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.khannum.petrol'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+
+    signingConfigs {
+        release {
+            def ks = project.findProperty('KHANNUM_KEYSTORE')
+            def kp = project.findProperty('KHANNUM_KEYSTORE_PASSWORD')
+            def alias = project.findProperty('KHANNUM_KEY_ALIAS')
+            def keyp = project.findProperty('KHANNUM_KEY_PASSWORD')
+            if (ks && file(ks).exists() && kp && alias && keyp) {
+                storeFile file(ks)
+                storePassword kp
+                keyAlias alias
+                keyPassword keyp
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+}
