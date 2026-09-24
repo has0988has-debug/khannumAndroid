@@ -123,8 +123,7 @@ public class MainActivity extends Activity {
 
     private double number(String value) {
         if (value == null) return 0;
-        String s = value.trim().replace("٬", ',').replace("٫", '.').replace(',', '.');
-        try { return Double.parseDouble(s); } catch (Exception e) { return 0; }
+String s = value.trim().replace(",", ".");        try { return Double.parseDouble(s); } catch (Exception e) { return 0; }
     }
 
     private String money(double value) {
